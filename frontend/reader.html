@@ -1,21 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RFP Reader | ZASDC-KZN Translation System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header>
+<h1>ZASDC-KZN Translation System</h1>
+<nav aria-label="Main">
+<a href="index.html">Home</a>
+<a href="reader.html" aria-current="page">RFP Reader</a>
+<a href="dictionary.html">Dictionary</a>
+</nav>
+</header>
 <main id="main">
 <h2>RFP Reader</h2>
+<p class="notice"><strong>Important:</strong> The official South African Space Design Competition (ZASDC) RFP is always the official source of truth. Translations and analogies serve as learning aids for participants.</p>
+
+<section class="reader-section">
 <form id="translate-form">
 <label for="source-text">Paste English text</label>
-<textarea id="source-text" rows="6" required></textarea>
-<label for="target-lang">Translate to</label>
-<select id="target-lang">
-<option value="zulu">isiZulu</option>
-<option value="afrikaans">Afrikaans</option>
-</select>
-<button class="button" type="submit">Translate</button>
-</form>
-<div id="translate-error" class="status"></div>
-<div id="translate-result">
-<h2>Original (English)</h2>
-<p id="original-output"></p>
-<h2 id="translated-heading">Translation</h2>
-<p id="translated-output"></p>
+<textarea id="source-text" rows="6" placeholder="Enter RFP requirements or space settlement specifications..."></textarea>
+
+<div class="form-row">
+  <div class="form-group">
+    <label for="file-upload">Or upload a document (TXT, PDF, DOCX)</label>
+    <input type="file" id="file-upload" accept=".txt,.pdf,.docx">
+  </div>
+  <div class="form-group">
+    <label for="target-lang">Translate to</label>
+    <select id="target-lang">
+      <option value="zulu">isiZulu</option>
+      <option value="afrikaans">Afrikaans</option>
+    </select>
+  </div>
 </div>
+
+<button class="button" type="submit" id="translate-btn">Translate Text</button>
+<button class="button button-secondary" type="button" id="upload-btn">Upload &amp; Translate</button>
+</form>
+
+<div id="translate-error" class="status error-message" role="alert"></div>
+
+<div id="translate-result" class="results-grid" style="display:none;">
+  <div class="result-column">
+    <h2>Original (English)</h2>
+    <div id="original-output" class="content-box"></div>
+  </div>
+  <div class="result-column">
+    <h2 id="translated-heading">Translation</h2>
+    <div id="translated-output" class="content-box"></div>
+  </div>
+</div>
+
+<section id="ai-explanation-box" class="explanation-card" style="display:none;">
+  <h3>AI Term Explanation &amp; Analogy</h3>
+  <p id="explain-term-title"><strong>Term:</strong> <span id="term-name"></span></p>
+  <p id="explain-definition"></p>
+  <div class="analogy-callout">
+    <strong>Local Analogy:</strong>
+    <p id="explain-analogy"></p>
+  </div>
+  <div class="language-notes" id="explain-notes"></div>
+</section>
+</section>
+
 <p class="status" id="api-status" role="status"></p>
 </main>
+<footer><p>The official competition RFP is always the source of truth. Translations are a learning aid only.</p></footer>
+<script src="js/app.js"></script>
+<script src="js/reader.js"></script>
+</body>
+</html>

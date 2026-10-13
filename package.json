@@ -1,0 +1,21 @@
+{
+  "name": "zasdc-kzn-translation-system",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ZASDC-KZN Translation System for South African Space Design Competition",
+  "scripts": {
+    "db:generate": "drizzle-kit generate"
+  },
+  "dependencies": {
+    "@google/genai": "^2.29.0",
+    "@netlify/database": "^2.0.1",
+    "@netlify/functions": "^6.0.2",
+    "drizzle-orm": "^1.0.0-beta.22"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "drizzle-kit": "^1.0.0-beta.22",
+    "typescript": "^7.0.2"
+  }
+}

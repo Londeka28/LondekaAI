@@ -11,16 +11,72 @@
 <header>
 <h1>ZASDC-KZN Translation System</h1>
 <nav aria-label="Main">
-<a href="index.html" >Home</a>
-<a href="reader.html" >RFP Reader</a>
+<a href="index.html">Home</a>
+<a href="reader.html">RFP Reader</a>
 <a href="dictionary.html" aria-current="page">Dictionary</a>
 </nav>
 </header>
 <main id="main">
-<h2>Space and astronomy dictionary</h2><p>The searchable dictionary is built in Phase 4.</p>
+<h2>Space and Astronomy Dictionary</h2>
+<p class="notice">Search reviewed competition terms across English, isiZulu, and Afrikaans, or submit terminology suggestions for mentor review.</p>
+
+<section class="dictionary-search-section">
+  <form id="glossary-search-form" class="search-bar-form">
+    <label for="glossary-search-input">Search technical space terms</label>
+    <div class="search-input-group">
+      <input type="search" id="glossary-search-input" placeholder="e.g. artificial gravity, radiation, regolith, airlock..." required>
+      <button class="button" type="submit" id="search-btn">Search</button>
+    </div>
+  </form>
+
+  <div id="search-status" class="status"></div>
+  <div id="glossary-results" class="glossary-grid" aria-live="polite"></div>
+</section>
+
+<section id="ai-modal-card" class="explanation-card" style="display:none;">
+  <h3>AI Scientific Explanation &amp; Local Analogy</h3>
+  <p><strong>Selected Term:</strong> <span id="modal-term-name"></span></p>
+  <p id="modal-term-explanation"></p>
+  <div class="analogy-callout">
+    <strong>South African Analogy:</strong>
+    <p id="modal-term-analogy"></p>
+  </div>
+  <div class="language-notes" id="modal-language-notes"></div>
+  <button type="button" class="button button-small" id="close-modal-btn">Close</button>
+</section>
+
+<section class="suggest-term-section">
+  <h3>Suggest a Term Equivalent</h3>
+  <p>Help expand space settlement vocabulary for South African learners.</p>
+  <form id="suggest-form">
+    <div class="form-group">
+      <label for="suggest-term">Suggested Term or Translation</label>
+      <input type="text" id="suggest-term" required placeholder="e.g. Isivikelo samagagasi">
+    </div>
+
+    <div class="form-group">
+      <label for="suggest-lang">Language</label>
+      <select id="suggest-lang">
+        <option value="isiZulu">isiZulu</option>
+        <option value="Afrikaans">Afrikaans</option>
+        <option value="English">English</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="suggest-reason">Explanation, Context or Example Usage</label>
+      <textarea id="suggest-reason" rows="3" placeholder="Explain the derivation or why this wording fits the RFP context..."></textarea>
+    </div>
+
+    <button type="submit" class="button" id="suggest-btn">Submit for Review</button>
+  </form>
+  <div id="suggest-status" class="status" role="status"></div>
+</section>
+
 <p class="status" id="api-status" role="status"></p>
 </main>
 <footer><p>The official competition RFP is always the source of truth. Translations are a learning aid only.</p></footer>
 <script src="js/app.js"></script>
+<script src="js/dictionary.js"></script>
 </body>
 </html>
