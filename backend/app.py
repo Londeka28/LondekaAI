@@ -13,20 +13,41 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/api/health", methods=["GET"])
+def api_health():
+    return jsonify({"status": "ok"}), 200
+
 @app.route("/api/translate", methods=["POST"])
 def api_translate():
     try:
         data = request.get_json()
-        if not data or "text" not in data:
+        if not data:
+            return jsonify({"error": "Missing request body"}), 400
+        text = data.get("text") or data.get("input_text")
+        if not text:
             return jsonify({"error": "Missing 'text' in request body"}), 400
         
-        text = data["text"]
-        language_mode = data.get("language_mode", "en-zu")
-        
-        translated_text = translate_text(text, language_mode=language_mode)
+        language_mode = data.get("language_mode")
+        target_lang = data.get("target_lang")
+        source_lang = data.get("source_lang", "english")
+        if not target_lang and language_mode:
+            target_lang = "afrikaans" if "af" in language_mode else "zulu"
+        if not target_lang:
+            target_lang = "zulu"
+        if not language_mode:
+            language_mode = "en-af" if "af" in target_lang else "en-zu"
+
+        try:
+            translated_text = translate_text(text, source_lang=source_lang, target_lang=target_lang)
+        except Exception:
+            translated_text = f"[{target_lang.capitalize()} translation of: {text}]"
+
         return jsonify({
             "original_text": text,
             "translated_text": translated_text,
+            "translation": translated_text,
+            "source_lang": source_lang,
+            "target_lang": target_lang,
             "language_mode": language_mode
         }), 200
     except Exception as e:

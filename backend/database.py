@@ -2,12 +2,15 @@
 """Supabase connection and data operations (Phase 4)."""
 
 import os
-import psycopg2
 from flask import current_app
 
 def get_db_connection():
-    """Establishes a connection to the Supabase PostgreSQL database."""
-    db_url = os.getenv("SUPABASE_DB_URL")
+    """Establishes a connection to the PostgreSQL database."""
+    try:
+        import psycopg2
+    except ImportError:
+        raise RuntimeError("psycopg2 is not installed in the environment.")
+    db_url = os.getenv("SUPABASE_DB_URL") or os.getenv("DATABASE_URL")
     if not db_url:
         raise ValueError("SUPABASE_DB_URL is not configured in the server environment variables.")
     return psycopg2.connect(db_url)
