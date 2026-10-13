@@ -1,0 +1,21 @@
+<main id="main">
+<h2>RFP Reader</h2>
+<form id="translate-form">
+<label for="source-text">Paste English text</label>
+<textarea id="source-text" rows="6" required></textarea>
+<label for="target-lang">Translate to</label>
+<select id="target-lang">
+<option value="zulu">isiZulu</option>
+<option value="afrikaans">Afrikaans</option>
+</select>
+<button class="button" type="submit">Translate</button>
+</form>
+<div id="translate-error" class="status"></div>
+<div id="translate-result">
+<h2>Original (English)</h2>
+<p id="original-output"></p>
+<h2 id="translated-heading">Translation</h2>
+<p id="translated-output"></p>
+</div>
+<p class="status" id="api-status" role="status"></p>
+</main>
