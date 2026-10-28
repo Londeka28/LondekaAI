@@ -16,3 +16,9 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offse
 .status{margin-top:2rem;font-size:.95rem}
 footer{max-width:52rem;margin:2rem auto;padding:0 1.5rem;font-size:.95rem}
 @media (max-width:640px){main{padding:1rem}}
+form{display:grid;gap:.75rem;margin-block:1.5rem}
+input,textarea,select{width:100%;padding:.65rem;font:inherit;border:1px solid #8899a6;border-radius:6px;background:#fff;color:var(--text)}
+button{font:inherit;border:0;cursor:pointer;justify-self:start}
+button:disabled{opacity:.65;cursor:wait}
+#original-output,#translated-output{white-space:pre-wrap;overflow-wrap:anywhere}
+#translate-error{color:var(--error)}

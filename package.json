@@ -1,0 +1,24 @@
+{
+  "name": "zasdc-kzn-translation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "tsx --test tests/netlify-api.test.ts"
+  },
+  "dependencies": {
+    "@netlify/database": "^2.0.1",
+    "@netlify/functions": "^6.0.3",
+    "drizzle-orm": "^1.0.0-beta.22",
+    "mammoth": "^1.13.0",
+    "openai": "^7.45.1",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/pdf-parse": "^1.1.5",
+    "drizzle-kit": "^1.0.0-beta.22",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

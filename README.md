@@ -5,28 +5,43 @@ space-settlement terminology in English, isiZulu, Afrikaans, or combinations, wh
 original English available. The official RFP is always the source of truth.
 
 ## Structure
-- `frontend/` static HTML/CSS/JS (deploy to Vercel)
-- `backend/` Flask API (deploy to Render)
-- `supabase/migrations/` database tables and access policies
-- `tests/` automated tests and safe sample fixtures
+- `frontend/`: static website published by Netlify
+- `netlify/functions/api.mts`: deployed API for translation, uploads, and glossary operations
+- `db/schema.ts`: Netlify Database schema
+- `netlify/database/migrations/`: generated database migrations applied during deployment
+- `backend/`: original Flask implementation retained for reference; not used by the Netlify deployment
+- `tests/netlify-api.test.ts`: Netlify API checks
 
 ## Local setup
-1. `python -m venv .venv` then activate it (Windows: `.venv\Scripts\activate`)
-2. `pip install -r requirements.txt`
-3. Copy `.env.example` to `.env` and add real keys. Never commit `.env`.
-4. Run the API: `python backend/app.py` and check http://localhost:5000/api/health
-5. Serve the frontend: `cd frontend && python -m http.server 5500`
-6. Run tests: `pytest`
+1. Run `npm ci`.
+2. Run `netlify dev --port 8889` in a linked Netlify project.
+3. Open http://localhost:8889. The frontend calls `/api` on the same origin.
+4. Run `npm test` and `npm run check` for API tests and TypeScript validation.
 
 ## Deployment
-- **Vercel:** deploy the `frontend/` directory; set `window.ZASDC_API_BASE` to the Render URL.
-- **Render:** Python web service. Build: `pip install -r requirements.txt`.
-  Start: `gunicorn --chdir backend app:app`. Set secrets and `ALLOWED_ORIGIN` (the Vercel URL) in Render's environment settings.
-- **Supabase:** run migrations; use the service key server-side only.
+Netlify publishes `frontend/` and bundles the TypeScript function using `netlify.toml`.
+No frontend build command is required. Node dependencies are installed from `package-lock.json`.
+The function routes `/api/health`, `/api/translate`, `/api/upload-translate`,
+`/api/glossary/search`, and `/api/glossary/suggest` replace the Flask service.
+
+Translations use `gpt-4.1-mini` through Netlify AI Gateway with automatically supplied runtime credentials.
+No separate translation provider key or external Flask host is required. Translation requests consume Netlify AI credits.
+Uploads support TXT, text-based PDF, and DOCX, up to 4 MB and 12,000 extracted characters per request.
+Scanned PDFs require OCR before upload. Uploaded documents are processed per request and are not stored.
+
+Glossary records and pending learner suggestions use Netlify Database through Drizzle ORM.
+The database starts empty; search returns only terms with `status = 'approved'`.
+Review and approval require database administration; this deployment does not include an admin interface.
+After changing `db/schema.ts`, generate a migration with
+`npx drizzle-kit generate --name describe_schema_change`. Netlify applies migrations during deployment.
+
+`/api/health` confirms that the API is reachable; it does not test AI or database availability.
+The legacy Python tests apply only to the original Flask code.
+Explanations, illustrations, and analytics remain future phases.
 
 ## Security rules
-Secrets live only in `.env` locally and in Render's environment settings. Never put real keys in
-GitHub, screenshots or reports. Do not store full RFP text in analytics.
+Keep credentials server-side. Never commit secrets or put credentials in browser code.
+The official RFP remains the source of truth; AI translations are a learning aid and may contain errors.
 
 ## Build phases
 1 Foundation (this) · 2 Translation · 3 Reader and extraction · 4 Glossary · 5 AI explanations ·
