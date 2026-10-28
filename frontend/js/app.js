@@ -1,5 +1,5 @@
-// Shared interface behaviour. Set API_BASE to the Render API URL when deployed.
-const API_BASE = window.ZASDC_API_BASE || "http://localhost:5000";
+// Shared interface behaviour. Use the same-origin Netlify API by default.
+const API_BASE = window.ZASDC_API_BASE || "";
 
 async function checkApi() {
   const el = document.getElementById("api-status");

@@ -19,3 +19,7 @@ __pycache__/
 # OS files
 Thumbs.db
 .DS_Store
+
+# Node and local Netlify state
+node_modules/
+.netlify/

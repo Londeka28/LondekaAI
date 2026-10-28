@@ -1,8 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RFP Reader | ZASDC-KZN Translation System</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header>
+<h1>ZASDC-KZN Translation System</h1>
+<nav aria-label="Main">
+<a href="index.html">Home</a>
+<a href="reader.html" aria-current="page">RFP Reader</a>
+<a href="dictionary.html">Dictionary</a>
+</nav>
+</header>
 <main id="main">
 <h2>RFP Reader</h2>
 <form id="translate-form">
 <label for="source-text">Paste English text</label>
-<textarea id="source-text" rows="6" required></textarea>
+<textarea id="source-text" rows="6" maxlength="12000"></textarea>
+<label for="source-file">Or upload a TXT, text-based PDF, or DOCX file (up to 4 MB)</label>
+<input id="source-file" type="file" accept=".txt,.pdf,.docx">
+<p>Paste text or choose a file. Translations support up to 12,000 extracted characters per request.</p>
 <label for="target-lang">Translate to</label>
 <select id="target-lang">
 <option value="zulu">isiZulu</option>
@@ -10,7 +31,7 @@
 </select>
 <button class="button" type="submit">Translate</button>
 </form>
-<div id="translate-error" class="status"></div>
+<div id="translate-error" class="status" role="alert"></div>
 <div id="translate-result">
 <h2>Original (English)</h2>
 <p id="original-output"></p>
@@ -19,3 +40,8 @@
 </div>
 <p class="status" id="api-status" role="status"></p>
 </main>
+<footer><p>The official competition RFP is always the source of truth. AI translations are a learning aid and may contain errors.</p></footer>
+<script src="js/app.js"></script>
+<script src="js/reader.js"></script>
+</body>
+</html>

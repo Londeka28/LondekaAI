@@ -17,10 +17,30 @@
 </nav>
 </header>
 <main id="main">
-<h2>Space and astronomy dictionary</h2><p>The searchable dictionary is built in Phase 4.</p>
+<h2>Space and astronomy dictionary</h2>
+<form id="dictionary-search">
+<label for="term-query">Search reviewed terms</label>
+<input id="term-query" type="search" maxlength="200" required>
+<button class="button" type="submit">Search</button>
+</form>
+<p id="dictionary-status" role="status"></p>
+<div id="dictionary-results"></div>
+<h2>Suggest a translation</h2>
+<p>Suggestions are stored for review and do not appear in search until approved.</p>
+<form id="suggestion-form">
+<label for="equivalent">Suggested equivalent</label>
+<input id="equivalent" maxlength="500" required>
+<label for="suggestion-language">Language</label>
+<select id="suggestion-language"><option value="zulu">isiZulu</option><option value="afrikaans">Afrikaans</option><option value="english">English</option></select>
+<label for="suggestion-reason">English term, reason, or example</label>
+<textarea id="suggestion-reason" maxlength="2000" rows="3"></textarea>
+<button class="button" type="submit">Submit suggestion</button>
+</form>
+<p id="suggestion-status" role="status"></p>
 <p class="status" id="api-status" role="status"></p>
 </main>
 <footer><p>The official competition RFP is always the source of truth. Translations are a learning aid only.</p></footer>
 <script src="js/app.js"></script>
+<script src="js/dictionary.js"></script>
 </body>
 </html>

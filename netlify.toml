@@ -1,0 +1,11 @@
+[build]
+  publish = "frontend"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  external_node_modules = ["pdf-parse"]
+
+[dev]
+  publish = "frontend"
+  port = 8889
